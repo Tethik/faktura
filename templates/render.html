@@ -31,6 +31,10 @@
     text-align: right;
   }
 
+  .lalign {
+    text-align: left;
+  }
+
   .wrapper {
     min-height: 100%;
     height: auto !important;
@@ -68,11 +72,12 @@
     </header>
 
     <p>Thanks for using our services. </p>
+
     <div class="items">
       <table cellspacing="0">
         <thead>
         <tr>
-            <th>Description</th><th></th><th class="ralign">VAT</th><th class="ralign">Amount</th>
+            <th class="lalign">Description</th><th></th><th class="ralign">VAT</th><th class="ralign">Amount</th>
         </tr>
       </thead>
       <tbody>
@@ -80,8 +85,8 @@
         <tr>
           <td>{{row.description}}</td>
           <td></td>
-          <td class="ralign">{{row.vat}}</td>
-          <td class="ralign">{{row.cost}}</td>
+          <td class="ralign">{{row.tax}}</td>
+          <td class="ralign">{{row.value}}</td>
         </tr>
       {% endfor %}
       </tbody>
@@ -93,7 +98,7 @@
         <b>Taxed:</b> {{invoice.total_tax}}
       </p>
       <p class="ralign">
-        <b>Total to pay:</b> {{invoice.total_cost}}
+        <b>Total to pay:</b> {{invoice.total_value}}
       </p>
     </div>
 

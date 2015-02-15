@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<head>
+  <title>Create new invoice.</title>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="/static/css/normalize.css">
+  <link rel="stylesheet" href="/static/css/skeleton.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="/static/images/favicon.png">
+
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+        <div class="row">
+          <a class="button button-primary" href="/create">Create new invoice</a>
+        </div>
+
+        <table class="u-full-width">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Customer</th>
+              <th>Created</th>
+              <th>Due</th>
+              <th>Amount</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for invoice in invoices %}
+            <tr>
+              <td>{{invoice.id}}</td>
+              <td>{{invoice.customer.name}}</td>
+              <td>{{invoice.created}}</td>
+              <td>{{invoice.due}}</td>
+              <td>{{invoice.total_value}}</td>
+              <td><a href="/show/{{invoice.id}}">open</a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+        </table>
+    </div>
+  </div>
+</body>

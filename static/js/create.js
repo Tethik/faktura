@@ -13,8 +13,8 @@ $(document).ready(function() {
 
   inputRow = '<tr> ' +
             '<td><input type="text" name="description" placeholder="Atomic screwdriver"></td> ' +
-            '<td><input type="text" name="vat" value="25%"></td> ' +
-            '<td><input type="number" name="cost" placeholder="1337"></td> ' +
+            '<td><input type="text" name="tax" value="25%"></td> ' +
+            '<td><input type="number" name="value" placeholder="1337"></td> ' +
             '<td><input class="button-primary" name="remove-row" type="button" value="Remove"></td> ' +
           '</tr>';
 
