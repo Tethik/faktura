@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, send_file, redirect
+from flask import Flask, request, render_template, send_file, redirect, make_response
 import pdfkit
 from datetime import datetime
 from uuid import uuid4
@@ -46,25 +46,30 @@ def create():
     else:
         return render_template('create.html')
 
-@app.route('/render', methods=['POST'])
-def render():
+def invoice_from_form(form):
     invoice = Invoice()
-    f = request.form
-    invoice.customer.name = request.form["customerName"]
-    invoice.customer.street = request.form["customerStreet"]
-    invoice.customer.city = request.form["customerCity"]
-    invoice.customer.zip = request.form["customerZip"]
+    invoice.customer.name = form["customerName"]
+    invoice.customer.street = form["customerStreet"]
+    invoice.customer.city = form["customerCity"]
+    invoice.customer.zip = form["customerZip"]
 
-    for i in range(len(request.form.getlist("description"))):
-        desc, tax, value = f.getlist("description")[i], f.getlist("vat")[i], f.getlist("cost")[i]
+    for i in range(len(form.getlist("description"))):
+        desc, tax, value = form.getlist("description")[i], form.getlist("vat")[i], form.getlist("cost")[i]
         invoice.rows.append(InvoiceRow(desc, tax, value))
         invoice.total_cost += int(value)
         invoice.total_tax += int(value) * Decimal("0." + tax.replace("%",""))
-        print()
+    return invoice
+
+
+@app.route('/render', methods=['POST'])
+def render():
+    invoice = invoice_from_form(request.form)
 
     html = render_template('render.html', invoice=invoice)
-    pdfkit.from_string(html , 'out.pdf')
-    return send_file('out.pdf')
+    pdf = pdfkit.from_string(html, False)
+    response = make_response(pdf)
+    response.headers['Content-Type'] = "application/pdf"
+    return response
 
 
 if __name__ == '__main__':
