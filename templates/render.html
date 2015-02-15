@@ -56,13 +56,14 @@
   <div class="wrapper">
     <header>
         <h1>Invoice</h1>
-        <b>Date created:</b> 2013-08-13<br />
-        <b>Invoice ID:</b> 13371337<br />
-        <b>Date due:</b> 2013-09-13</br />
+        <b>Date created:</b> {{invoice.created}} <br />
+        <b>Invoice ID:</b> {{invoice.reference_id}} <br />
+        <b>Date due:</b> {{invoice.due}} </br />
         <br />
-        Customer name<br />
-        Streetname no.<br />
-        Zip &amp; City<br />
+
+        {{invoice.customer.name}}<br />
+        {{invoice.customer.street}}<br />
+        {{invoice.customer.zip}} {{invoice.customer.city}}<br />
         <!-- Logo goes here maybe? -->
     </header>
 
@@ -75,22 +76,24 @@
         </tr>
       </thead>
       <tbody>
+        {% for row in invoice.rows %}
         <tr>
-          <td>Some item</td>
+          <td>{{row.description}}</td>
           <td></td>
-          <td class="ralign">25%</td>
-          <td class="ralign">1337</td>
+          <td class="ralign">{{row.vat}}</td>
+          <td class="ralign">{{row.cost}}</td>
         </tr>
+      {% endfor %}
       </tbody>
       </table>
     </div>
 
     <div class="summary">
       <p class="ralign">
-        <b>Taxed:</b> 430
+        <b>Taxed:</b> {{invoice.total_tax}}
       </p>
       <p class="ralign">
-        <b>Total to pay:</b> 1337
+        <b>Total to pay:</b> {{invoice.total_cost}}
       </p>
     </div>
 

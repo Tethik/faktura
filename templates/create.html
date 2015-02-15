@@ -25,12 +25,20 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="icon" type="image/png" href="/static/images/favicon.png">
 
+  <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+  <script src="/static/js/create.js"></script>
+
+  <style>
+    .preview  {
+      height: 800px;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
+    <form method="post" action="/create">
     <div class="row">
       <h2>Customer details</h2>
-      <form method="">
         <div>
           <label for="customerName">Name</label>
           <input class="u-full-width" type="text" placeholder="Isaac Asimov" name="customerName">
@@ -49,7 +57,6 @@
             <input class="u-full-width" type="text" placeholder="123 45" name="customerZip">
           </div>
         </div>
-      </form>
 
       <h2>Invoice rows</h2>
       <table class="u-full-width">
@@ -58,13 +65,7 @@
             <th>Description</th><th>VAT</th><th>Cost</th><th></th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td><input type="text" name="description" placeholder="Atomic screwdriver"></td>
-            <td><input type="text" name="vat" placeholder="25%"></td>
-            <td><input type="number" name="cost" placeholder="1337"></td>
-            <td><input class="button-primary" type="button" value="Remove"></td>
-          </tr>
+        <tbody id="invoice-rows">
         </tbody>
       </table>
       <div class="row">
@@ -72,16 +73,14 @@
             &nbsp;
           </div>
           <div class="four columns">
-            <input class="button-primary" type="button" value="Add new row">
+            <input id="button-new-row" class="button-primary" type="button" value="Add new row">
           </div>
       </div>
 
-      <div>
+      <div id="preview">
         <h2>Preview</h2>
         <hr />
-        <div>
-
-        </div>
+        <iframe name="preview" class="u-full-width preview"></iframe>
       </div>
 
       <hr />
@@ -91,12 +90,13 @@
             &nbsp;
           </div>
           <div class="four columns">
-            <input class="button-primary" type="button" value="Preview">
-            <input class="button-primary" type="button" value="Create">
+            <input id="button-preview" class="button-primary" type="submit" name="preview" value="Preview">
+            <input id="button-create" class="button-primary" type="submit" name="create" value="Create">
           </div>
       </div>
 
   </div>
+</form>
 </div>
 
 </body>
