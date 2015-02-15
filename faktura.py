@@ -15,7 +15,7 @@ def list():
 
 @app.route('/create')
 def create():
-    pass
+    return render_template('create.html')
 
 @app.route('/render', methods=['GET', 'POST'])
 def render():

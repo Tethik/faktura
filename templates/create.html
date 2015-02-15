@@ -5,7 +5,6 @@
   <!-- Basic Page Needs
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
-  <title>Your page title here :)</title>
   <meta name="description" content="">
   <meta name="author" content="">
 
@@ -30,17 +29,74 @@
 <body>
   <div class="container">
     <div class="row">
-      <h1>Create new invoice</h1>
-
       <h2>Customer details</h2>
       <form method="">
-
+        <div>
+          <label for="customerName">Name</label>
+          <input class="u-full-width" type="text" placeholder="Isaac Asimov" name="customerName">
+        </div>
+        <div>
+          <label for="customerName">Address</label>
+          <input class="u-full-width" type="text" placeholder="Liberty Lane 123" name="customerStreet">
+        </div>
+        <div class="row">
+          <div class="six columns">
+            <label for="customerCity">City</label>
+            <input class="u-full-width" type="text" placeholder="St. Petersburg" name="customerCity">
+          </div>
+          <div class="six columns">
+            <label for="customerZip">Zip</label>
+            <input class="u-full-width" type="text" placeholder="123 45" name="customerZip">
+          </div>
+        </div>
       </form>
-      <h2>Invoice details</h2>
-      <table>
 
+      <h2>Invoice rows</h2>
+      <table class="u-full-width">
+        <thead>
+          <tr>
+            <th>Description</th><th>VAT</th><th>Cost</th><th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="text" name="description" placeholder="Atomic screwdriver"></td>
+            <td><input type="text" name="vat" placeholder="25%"></td>
+            <td><input type="number" name="cost" placeholder="1337"></td>
+            <td><input class="button-primary" type="button" value="Remove"></td>
+          </tr>
+        </tbody>
       </table>
-    </div>
+      <div class="row">
+          <div class="eight columns">
+            &nbsp;
+          </div>
+          <div class="four columns">
+            <input class="button-primary" type="button" value="Add new row">
+          </div>
+      </div>
+
+      <div>
+        <h2>Preview</h2>
+        <hr />
+        <div>
+
+        </div>
+      </div>
+
+      <hr />
+
+      <div class="row">
+          <div class="eight columns">
+            &nbsp;
+          </div>
+          <div class="four columns">
+            <input class="button-primary" type="button" value="Preview">
+            <input class="button-primary" type="button" value="Create">
+          </div>
+      </div>
+
   </div>
+</div>
 
 </body>
