@@ -11,7 +11,7 @@ Configuration can be done in the faktura.cfg file, where you can change the sql 
 
 # Demo Usage
 To start the http-server as a standalone flask application:
-`python flask.py`
+`python runserver.py`
 
 After you've got the application running, simply navigate to http://127.0.0.1:5000
 

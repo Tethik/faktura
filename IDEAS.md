@@ -2,4 +2,5 @@
 * Template editor
 * QR code
 * Localization
-* Responsive design. 
+* Responsive design.
+* Mailing
