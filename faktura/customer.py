@@ -7,12 +7,13 @@ from faktura.breadcrumbs import breadcrumbs
 @app.route('/customer/<int:customer_id>')
 def show_customer(customer_id):
     customer = Customer.query.filter_by(id=customer_id).first()
-    return render_template('customers/show.html', customer=customer, breadcrumbs=breadcrumbs("Main Menu","Customers"))
-
+    invoices = Invoice.query.filter_by(customer_id=customer_id).all()
+    return render_template('customers/show.html', customer=customer,  invoices=invoices, breadcrumbs=breadcrumbs("Main Menu","Customers"))
 
 @app.route('/customers')
 def customers():
     customers = Customer.query.all()
+
     return render_template('customers/list.html', customers=customers, breadcrumbs=breadcrumbs("Main Menu"))
 
 @app.route('/customer/create', methods=["POST", "GET"])

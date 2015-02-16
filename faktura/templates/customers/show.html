@@ -20,4 +20,33 @@
     <input class="u-full-width" type="text" placeholder="123 45" name="customerZip"  value="{{customer.zip}}" readonly>
   </div>
 </div>
+
+<h2>Invoices</h2>
+
+<table class="u-full-width">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Customer</th>
+      <th>Created</th>
+      <th>Due</th>
+      <th>Amount</th>
+      <th></th>
+      <!-- <th></th> -->
+    </tr>
+  </thead>
+  <tbody>
+  {% for invoice in invoices %}
+    <tr>
+      <td>{{invoice.id}}</td>
+      <td>{{invoice.customer.name}}</td>
+      <td>{{invoice.created}}</td>
+      <td>{{invoice.due}}</td>
+      <td>{{invoice.total_value}}</td>
+      <td><a href="/invoice/{{invoice.id}}">open</a></td>
+      <!-- <td><a href="/invoice/{{invoice.id}}">delete</a></td> -->
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
 {% endblock %}
