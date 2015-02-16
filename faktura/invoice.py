@@ -11,20 +11,20 @@ import os
 def list():
     invoices = Invoice.query.all()
     print(invoices)
-    return render_template('invoices.html', invoices=invoices, breadcrumbs=["Main Menu"])
+    return render_template('invoices/list.html', invoices=invoices, breadcrumbs=["Main Menu"])
 
-@app.route('/show/<int:invoice_id>')
+@app.route('/invoice/<int:invoice_id>')
 def show(invoice_id):
     invoice = Invoice.query.filter_by(id=invoice_id).first()
     print(invoice)
-    return render_template('show.html', invoice=invoice)
+    return render_template('invoices/show.html', invoice=invoice)
 
-@app.route('/show/<int:invoice_id>/pdf')
+@app.route('/invoice/<int:invoice_id>/pdf')
 def pdf(invoice_id): # acl..
     pdfdir = app.config["PDF_DIRECTORY"]
     return send_file('{}/{}.pdf'.format(pdfdir, invoice_id))
 
-@app.route('/create', methods=['POST','GET'])
+@app.route('/invoice/create', methods=['POST','GET'])
 def create():
     if request.method == 'POST':
         invoice = invoice_from_form(request.form)
@@ -40,7 +40,7 @@ def create():
         db.session.commit()
         return redirect('/show/{}'.format(invoice.id))
     else:
-        return render_template('create.html', breadcrumbs=["Main Menu","Invoices"])
+        return render_template('invoices/create.html', breadcrumbs=["Main Menu","Invoices"])
 
 def invoice_from_form(form):
     invoice = Invoice()
@@ -58,16 +58,14 @@ def invoice_from_form(form):
     return invoice
 
 def pdf_from_invoice(invoice):
-    html = render_template('render.html', invoice=invoice)
+    html = render_template('invoices/render.html', invoice=invoice)
     pdf = pdfkit.from_string(html, False)
     return pdf
 
-
-@app.route('/render', methods=['POST'])
+@app.route('/invoice/render', methods=['POST'])
 def render():
     invoice = invoice_from_form(request.form)
     pdf = pdf_from_invoice(invoice)
-
     response = make_response(pdf)
     response.headers['Content-Type'] = "application/pdf"
     return response
