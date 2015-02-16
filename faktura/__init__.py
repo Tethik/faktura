@@ -9,11 +9,11 @@ def hello():
 import faktura.invoice
 import faktura.settings
 import faktura.customer
+from faktura.models import db
 
-
+db.create_all()
 
 
 if __name__ == '__main__':
     app.debug = True
-    db.create_all()
     app.run()
