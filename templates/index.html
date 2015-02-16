@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block title %}Faktura{% endblock %}
+{% block body %}
+
+
+
+      <h1>Welcome {{user}}!</h1>
+
+      <div class="row index-menu">
+        <div class="four columns">
+          <a href="/invoices">
+            <span>
+              <img src="/static/images/128px/document.png" alt="invoices"><br />
+              Invoices
+            </span>
+          </a>
+        </div>
+        <div class="four columns">
+          <a href="/customers">
+            <span>
+              <img src="/static/images/128px/profle.png" alt="customers"><br />
+              Customers
+            </span>
+          </a>
+        </div>
+        <div class="four columns">
+          <a href="/settings">
+            <span>
+              <img src="/static/images/128px/gear.png" alt="settings"><br />
+              Settings
+            </span>
+          </a>
+        </div>
+      </div>
+  </div>
+{% endblock %}

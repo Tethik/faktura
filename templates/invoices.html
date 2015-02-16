@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block title %}Invoices{% endblock %}
+{% block body %}
+<h1><img src="/static/images/64px/document.png"> Invoices</h1>
+<div class="row">
+  <a class="button button-primary" href="/create">Create new invoice</a>
+</div>
+
+<table class="u-full-width">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Customer</th>
+      <th>Created</th>
+      <th>Due</th>
+      <th>Amount</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for invoice in invoices %}
+    <tr>
+      <td>{{invoice.id}}</td>
+      <td>{{invoice.customer.name}}</td>
+      <td>{{invoice.created}}</td>
+      <td>{{invoice.due}}</td>
+      <td>{{invoice.total_value}}</td>
+      <td><a href="/show/{{invoice.id}}">open</a></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

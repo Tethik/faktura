@@ -50,19 +50,27 @@ class InvoiceRow(db.Model):
 
 @app.route('/')
 def hello():
-    return "hello"
+    return render_template("index.html")
 
-@app.route('/list')
+@app.route('/invoices')
 def list():
     invoices = Invoice.query.all()
     print(invoices)
-    return render_template('list.html', invoices=invoices)
+    return render_template('invoices.html', invoices=invoices, breadcrumbs=["Main Menu"])
 
 @app.route('/show/<int:invoice_id>')
 def show(invoice_id):
     invoice = Invoice.query.filter_by(id=invoice_id).first()
     print(invoice)
     return render_template('show.html', invoice=invoice)
+
+@app.route('/customers')
+def customers():
+    return render_template('customers.html')
+
+@app.route('/settings')
+def settings():
+    return render_template('settings.html')
 
 @app.route('/show/<int:invoice_id>/pdf')
 def pdf(invoice_id): # acl..
@@ -81,7 +89,7 @@ def create():
             f.write(pdf)
         return redirect('/show/{}'.format(invoice.id))
     else:
-        return render_template('create.html')
+        return render_template('create.html', breadcrumbs=["Main Menu","Invoices"])
 
 def invoice_from_form(form):
     invoice = Invoice()

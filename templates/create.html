@@ -1,44 +1,18 @@
-<!DOCTYPE HTML>
-<head>
-  <title>Create new invoice.</title>
-
-  <!-- Basic Page Needs
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <meta charset="utf-8">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <!-- Mobile Specific Metas
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- FONT
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-
-  <!-- CSS
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="/static/css/normalize.css">
-  <link rel="stylesheet" href="/static/css/skeleton.css">
-
-  <!-- Favicon
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="icon" type="image/png" href="/static/images/favicon.png">
-
-  <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-  <script src="/static/js/create.js"></script>
-
-  <style>
-    .preview  {
-      height: 800px;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
+{% extends "layout.html" %}
+{% block title %}Create new invoice{% endblock %}
+{% block head %}
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="/static/js/create.js"></script>
+<style>
+  .preview  {
+    height: 800px;
+  }
+</style>
+{% endblock %}
+{% block body %}
     <form method="post" action="/create">
     <div class="row">
-      <h2>Customer details</h2>
+      <h2><img src="/static/images/64px/profle.png"> Customer details</h2>
         <div>
           <label for="customerName">Name</label>
           <input class="u-full-width" type="text" placeholder="Isaac Asimov" name="customerName">
@@ -58,7 +32,7 @@
           </div>
         </div>
 
-      <h2>Invoice rows</h2>
+      <h2><img src="/static/images/64px/document.png"> Invoice rows</h2>
       <table class="u-full-width">
         <thead>
           <tr>
@@ -97,6 +71,4 @@
 
   </div>
 </form>
-</div>
-
-</body>
+{% endblock %}

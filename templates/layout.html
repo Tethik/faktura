@@ -1,12 +1,12 @@
 <!DOCTYPE HTML>
+<html>
 <head>
-  <title>Create new invoice.</title>
-
   <!-- Basic Page Needs
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
   <meta name="description" content="">
   <meta name="author" content="">
+  <title>{% block title %}Faktura{% endblock %}</title>
 
   <!-- Mobile Specific Metas
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -20,43 +20,27 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="stylesheet" href="/static/css/normalize.css">
   <link rel="stylesheet" href="/static/css/skeleton.css">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/faktura.css">
 
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="icon" type="image/png" href="/static/images/favicon.png">
 
+  {% block head %}
+  {% endblock %}
 </head>
 <body>
-  <div class="container">
-    <div class="row">
-        <div class="row">
-          <a class="button button-primary" href="/create">Create new invoice</a>
-        </div>
-
-        <table class="u-full-width">
-          <thead>
-            <tr>
-              <th>Id</th>
-              <th>Customer</th>
-              <th>Created</th>
-              <th>Due</th>
-              <th>Amount</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-          {% for invoice in invoices %}
-            <tr>
-              <td>{{invoice.id}}</td>
-              <td>{{invoice.customer.name}}</td>
-              <td>{{invoice.created}}</td>
-              <td>{{invoice.due}}</td>
-              <td>{{invoice.total_value}}</td>
-              <td><a href="/show/{{invoice.id}}">open</a></td>
-            </tr>
-          {% endfor %}
-        </tbody>
-        </table>
-    </div>
+<div class="container" id="main">
+  <div class="row" id="breadcrumbs">
+    {% for item in breadcrumbs %}
+      <li><a href="{{item}}">{{ item }}</a></li>
+    {% endfor %}
   </div>
+  <div id="content">
+{% block body %}
+
+{% endblock %}
+  </div>
+</div>
 </body>
