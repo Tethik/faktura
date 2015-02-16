@@ -2,6 +2,7 @@ from faktura import app
 from flask import request, render_template, send_file, redirect, make_response
 from faktura.models import db, Customer, Invoice, InvoiceRow
 from decimal import Decimal
+from faktura.breadcrumbs import breadcrumbs
 import pdfkit
 import os
 
@@ -11,13 +12,13 @@ import os
 def list():
     invoices = Invoice.query.all()
     print(invoices)
-    return render_template('invoices/list.html', invoices=invoices, breadcrumbs=["Main Menu"])
+    return render_template('invoices/list.html', invoices=invoices, breadcrumbs=breadcrumbs("Main Menu"))
 
 @app.route('/invoice/<int:invoice_id>')
 def show(invoice_id):
     invoice = Invoice.query.filter_by(id=invoice_id).first()
     print(invoice)
-    return render_template('invoices/show.html', invoice=invoice)
+    return render_template('invoices/show.html', invoice=invoice, breadcrumbs=breadcrumbs("Main Menu","Invoices"))
 
 @app.route('/invoice/<int:invoice_id>/pdf')
 def pdf(invoice_id): # acl..
@@ -40,7 +41,7 @@ def create():
         db.session.commit()
         return redirect('/show/{}'.format(invoice.id))
     else:
-        return render_template('invoices/create.html', breadcrumbs=["Main Menu","Invoices"])
+        return render_template('invoices/create.html', breadcrumbs=breadcrumbs("Main Menu","Invoices"))
 
 def invoice_from_form(form):
     invoice = Invoice()

@@ -34,7 +34,7 @@
 <div class="container" id="main">
   <div class="row" id="breadcrumbs">
     {% for item in breadcrumbs %}
-      <li><a href="{{item}}">{{ item }}</a></li>
+      <li><a href="{{item.url}}">{{ item.text }}</a></li>
     {% endfor %}
   </div>
   <div id="content">
