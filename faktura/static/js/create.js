@@ -3,12 +3,12 @@ $(document).ready(function() {
   $("#button-preview").click(function() {
     $("#preview").show();
     $("form").attr("target", "preview")
-    $("form").attr("action", "/render")
+    $("form").attr("action", "/invoice/render")
   })
 
   $("#button-create").click(function() {
     $("form").attr("target", "")
-    $("form").attr("action", "/create")
+    $("form").attr("action", "/invoice/create")
   })
 
   inputRow = '<tr> ' +
