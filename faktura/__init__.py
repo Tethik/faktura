@@ -6,14 +6,7 @@ app = Flask(__name__)
 def hello():
     return render_template("index.html")
 
+import faktura.models
 import faktura.invoice
 import faktura.settings
 import faktura.customer
-from faktura.models import db
-
-db.create_all()
-
-
-if __name__ == '__main__':
-    app.debug = True
-    app.run()
