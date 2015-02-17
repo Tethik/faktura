@@ -10,15 +10,29 @@ import os
 
 @app.route('/invoices')
 def list():
-    invoices = Invoice.query.all()
-    print(invoices)
-    return render_template('invoices/list.html', invoices=invoices, breadcrumbs=breadcrumbs("Main Menu"))
+    query = request.args.get('query', '').strip()
+    page = int(request.args.get('p', 0))
+
+    q = Invoice.query.filter(Customer.name.like('{}%'.format(query))).limit(10).offset(10*page)
+    count = q.count()
+    invoices = q.all()
+
+    return render_template('invoices/list.html', invoices=invoices, breadcrumbs=breadcrumbs("Main Menu"), count=count, page=page, query=query)
 
 @app.route('/invoice/<int:invoice_id>')
 def show(invoice_id):
     invoice = Invoice.query.filter_by(id=invoice_id).first()
     print(invoice)
     return render_template('invoices/show.html', invoice=invoice, breadcrumbs=breadcrumbs("Main Menu","Invoices"))
+
+@app.route('/invoice/<int:invoice_id>/delete', methods=["GET","POST"])
+def delete_invoice(invoice_id):
+    invoice = Invoice.query.filter_by(id=invoice_id).first()
+    if request.method == "POST":
+        db.session.delete(invoice)
+        db.session.commit()
+        return redirect('/invoices')
+    return render_template('invoices/delete.html', invoice=invoice, breadcrumbs=breadcrumbs("Main Menu","Invoices"))
 
 @app.route('/invoice/<int:invoice_id>/pdf')
 def pdf(invoice_id): # acl..
