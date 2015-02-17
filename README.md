@@ -25,8 +25,8 @@ See [TODO.md](TODO.md). Ideas at [IDEAS.md](IDEAS.md)
 
 # Credits
 Thanks to the following libs for doing basically all my work for me:
-* Flask
-* flask-sqlalchemy
-* pdfkit
+* [Flask](http://flask.pocoo.org/)
+* [flask-sqlalchemy](http://flask-sqlalchemy.pocoo.org/)
+* [pdfkit](https://pypi.python.org/pypi/pdfkit)
 * [skeleton css framework](http://getskeleton.com)
 * [flat circle-icons from elegantthemes.com] (http://www.elegantthemes.com/blog/freebie-of-the-week/beautiful-flat-icons-for-free)

@@ -14,13 +14,15 @@ class Customer(db.Model):
 class Invoice(db.Model):
     id = db.Column(db.Integer, primary_key=True) #would like a guid here..
     customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'))
-    customer = db.relationship('Customer', backref=db.backref('invoices', lazy='dynamic'))
+    customer = db.relationship('Customer',
+        backref=db.backref('invoices', lazy='dynamic', cascade='all, delete-orphan'))
     reference_id = db.Column(db.Integer)
     created = db.Column(db.DateTime)
     due = db.Column(db.DateTime)
     total_tax = db.Column(db.Float)
     total_value = db.Column(db.Integer)
-    rows = db.relationship('InvoiceRow', backref='invoice', lazy='dynamic')
+    rows = db.relationship('InvoiceRow',
+        backref='invoice', lazy='dynamic', cascade='all, delete-orphan')
 
     def __init__(self):
         self.due = datetime.now()

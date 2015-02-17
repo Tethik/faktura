@@ -39,7 +39,7 @@ def create():
         with open('{}/{}.pdf'.format(pdfdir, invoice.id), 'wb') as f:
             f.write(pdf)
         db.session.commit()
-        return redirect('/show/{}'.format(invoice.id))
+        return redirect('/invoice/{}'.format(invoice.id))
     else:
         return render_template('invoices/create.html', breadcrumbs=breadcrumbs("Main Menu","Invoices"))
 

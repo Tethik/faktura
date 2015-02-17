@@ -5,20 +5,20 @@
 <form method="post" action="/customer/create">
 <div>
   <label for="customerName">Name</label>
-  <input class="u-full-width" type="text" value="" placeholder="Isaac Asimov" name="customerName">
+  <input class="u-full-width" type="text" value="" placeholder="Isaac Asimov" name="customerName" required>
 </div>
 <div>
-  <label for="customerName">Address</label>
-  <input class="u-full-width" type="text" placeholder="Liberty Lane 123" name="customerStreet"  value="">
+  <label for="customerStreet">Address</label>
+  <input class="u-full-width" type="text" placeholder="Liberty Lane 123" name="customerStreet"  value="" required>
 </div>
 <div class="row">
   <div class="six columns">
     <label for="customerCity">City</label>
-    <input class="u-full-width" type="text" placeholder="St. Petersburg" name="customerCity"  value="">
+    <input class="u-full-width" type="text" placeholder="St. Petersburg" name="customerCity"  value="" required>
   </div>
   <div class="six columns">
     <label for="customerZip">Zip</label>
-    <input class="u-full-width" type="text" placeholder="123 45" name="customerZip"  value="">
+    <input class="u-full-width" type="text" placeholder="123 45" name="customerZip"  value="" required>
   </div>
 </div>
 <div>
