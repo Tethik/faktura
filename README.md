@@ -7,6 +7,9 @@ I recommend using a virtualenv. [See this guide for a great explanation.](http:/
 Requirements are collected in the requirements.txt file.
 ` pip install -r requirements.txt `
 
+You'll also need `wkhtmltopdf`, which is used by pdfkit.
+`apt-get install wkhtmltopdf` or your equivalent packagemanager.
+
 Configuration can be done in the faktura.cfg file, where you can change the sql uri used by sqlalchemy. By default it will use a sqllite database, so you don't have to do anything. Generated pdfs are saved in the `pdfs/`folder for now.
 
 # Demo Usage
