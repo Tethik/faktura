@@ -22,7 +22,6 @@ def list():
 @app.route('/invoice/<int:invoice_id>')
 def show(invoice_id):
     invoice = Invoice.query.filter_by(id=invoice_id).first()
-    print(invoice)
     return render_template('invoices/show.html', invoice=invoice, breadcrumbs=breadcrumbs("Main Menu","Invoices"))
 
 @app.route('/invoice/<int:invoice_id>/delete', methods=["GET","POST"])
@@ -39,30 +38,55 @@ def pdf(invoice_id): # acl..
     pdfdir = app.config["PDF_DIRECTORY"]
     return send_file('{}/{}.pdf'.format(pdfdir, invoice_id))
 
+@app.route('/invoice/create/for_customer/<int:customer_id>', methods=['POST','GET'])
+def create_for_customer(customer_id):
+    customer = Customer.query.filter(Customer.id == customer_id).first()
+    if request.method == "GET":
+        return render_template('invoices/create_invoice_details.html', customer=customer, breadcrumbs=breadcrumbs("Main Menu","Invoices"))
+    # POST
+    invoice = invoice_from_form(request.form)
+    invoice.customer = customer
+    db.session.add(invoice)
+    pdf = pdf_from_invoice(invoice)
+    pdfdir = app.config["PDF_DIRECTORY"]
+    if not os.path.isabs(pdfdir):
+        pdfdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), pdfdir)
+
+    with open('{}/{}.pdf'.format(pdfdir, invoice.id), 'wb') as f:
+        f.write(pdf)
+    db.session.commit()
+    return redirect('/invoice/{}'.format(invoice.id))
+
+
 @app.route('/invoice/create', methods=['POST','GET'])
 def create():
-    if request.method == 'POST':
-        invoice = invoice_from_form(request.form)
-        db.session.add(invoice.customer)
-        db.session.add(invoice)
-        pdf = pdf_from_invoice(invoice)
-        pdfdir = app.config["PDF_DIRECTORY"]
-        if not os.path.isabs(pdfdir):
-            pdfdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), pdfdir)
+    if request.method == 'GET':
+        customers = db.session.query(Customer.id, Customer.name).all() # bottleneck
+        return render_template('invoices/create.html', customers=customers, breadcrumbs=breadcrumbs("Main Menu","Invoices"))
 
-        with open('{}/{}.pdf'.format(pdfdir, invoice.id), 'wb') as f:
-            f.write(pdf)
+    customer_id = int(request.form["customer_id"])
+    if customer_id < 0: # new customerorm
+        customer = Customer()
+        customer.name = request.form["customerName"]
+        customer.street = request.form["customerStreet"]
+        customer.city = request.form["customerCity"]
+        customer.zip = request.form["customerZip"]
+        db.session.add(customer)
         db.session.commit()
-        return redirect('/invoice/{}'.format(invoice.id))
-    else:
-        return render_template('invoices/create.html', breadcrumbs=breadcrumbs("Main Menu","Invoices"))
+        customer_id = customer.id
+
+    return redirect("/invoice/create/for_customer/{}".format(customer_id))
+
+
+
 
 def invoice_from_form(form):
     invoice = Invoice()
-    invoice.customer.name = form["customerName"]
-    invoice.customer.street = form["customerStreet"]
-    invoice.customer.city = form["customerCity"]
-    invoice.customer.zip = form["customerZip"]
+
+    # invoice.customer.name = form["customerName"]
+    # invoice.customer.street = form["customerStreet"]
+    # invoice.customer.city = form["customerCity"]
+    # invoice.customer.zip = form["customerZip"]
 
     for i in range(len(form.getlist("description"))):
         desc, tax, value = form.getlist("description")[i], form.getlist("tax")[i], form.getlist("value")[i]
@@ -77,9 +101,10 @@ def pdf_from_invoice(invoice):
     pdf = pdfkit.from_string(html, False)
     return pdf
 
-@app.route('/invoice/render', methods=['POST'])
-def render():
+@app.route('/invoice/render/<int:customer_id>', methods=['POST'])
+def render(customer_id):
     invoice = invoice_from_form(request.form)
+    invoice.customer = Customer.query.filter(Customer.id ==  customer_id).first()
     pdf = pdf_from_invoice(invoice)
     response = make_response(pdf)
     response.headers['Content-Type'] = "application/pdf"

@@ -4,20 +4,20 @@
 <h2><img src="/static/images/64px/profle.png"> Customer details</h2>
 <div>
   <label for="customerName">Name</label>
-  <input class="u-full-width" type="text" value="{{invoice.customer.name}}" placeholder="Isaac Asimov" name="customerName" readonly>
+  <p class="u-full-width"  name="customerName">{{invoice.customer.name}}</p>
 </div>
 <div>
   <label for="customerName">Address</label>
-  <input class="u-full-width" type="text" placeholder="Liberty Lane 123" name="customerStreet"  value="{{invoice.customer.street}}" readonly>
+  <p class="u-full-width" name="customerStreet">{{invoice.customer.street}}</p>
 </div>
 <div class="row">
   <div class="six columns">
     <label for="customerCity">City</label>
-    <input class="u-full-width" type="text" placeholder="St. Petersburg" name="customerCity"  value="{{invoice.customer.city}}" readonly>
+    <p class="u-full-width" name="customerCity">{{invoice.customer.city}}</p>
   </div>
   <div class="six columns">
     <label for="customerZip">Zip</label>
-    <input class="u-full-width" type="text" placeholder="123 45" name="customerZip"  value="{{invoice.customer.zip}}" readonly>
+    <p class="u-full-width" name="customerZip" >{{invoice.customer.zip}}</p>
   </div>
 </div>
 

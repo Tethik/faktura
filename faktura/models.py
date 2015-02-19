@@ -11,6 +11,14 @@ class Customer(db.Model):
     city = db.Column(db.String(100))
     zip = db.Column(db.String(10))
 
+    def to_json(self):
+        return dict(name=self.name,
+            street=self.street,
+            id=self.id,
+            city=self.city,
+            zip=self.zip
+        )
+
 class Invoice(db.Model):
     id = db.Column(db.Integer, primary_key=True) #would like a guid here..
     customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'))

@@ -10,9 +10,18 @@
 </style>
 {% endblock %}
 {% block body %}
-    <form method="post" action="/invoice/create">
+  <form method="post" action="/invoice/create">
     <div class="row">
       <h2><img src="/static/images/64px/profle.png"> Customer details</h2>
+      <label for="customer_id">Existing customer</label>
+      <select name="customer_id" id="customerSelect">
+        <option value="-1" selected>Create new</option>
+        {% for customer in customers %}
+          <option value="{{customer.id}}">{{customer.name}}</option>
+        {% endfor %}
+      </select>
+
+      <div class="whitepaper" id="customerForm">
         <div>
           <label for="customerName">Name</label>
           <input class="u-full-width" type="text" placeholder="Isaac Asimov" name="customerName">
@@ -31,44 +40,11 @@
             <input class="u-full-width" type="text" placeholder="123 45" name="customerZip">
           </div>
         </div>
-
-      <h2><img src="/static/images/64px/document.png"> Invoice rows</h2>
-      <table class="u-full-width">
-        <thead>
-          <tr>
-            <th>Description</th><th>VAT (%)</th><th>Cost</th><th></th>
-          </tr>
-        </thead>
-        <tbody id="invoice-rows">
-        </tbody>
-      </table>
-      <div class="row">
-          <div class="eight columns">
-            &nbsp;
-          </div>
-          <div class="four columns">
-            <input id="button-new-row" class="button-primary" type="button" value="Add new row">
-          </div>
       </div>
-
-      <div id="preview">
-        <h2>Preview</h2>
-        <hr />
-        <iframe name="preview" class="u-full-width preview"></iframe>
-      </div>
-
       <hr />
-
-      <div class="row">
-          <div class="eight columns">
-            &nbsp;
-          </div>
-          <div class="four columns">
-            <input id="button-preview" class="button-primary" type="submit" name="preview" value="Preview">
-            <input id="button-create" class="button-primary" type="submit" name="create" value="Create">
-          </div>
+      <div class="ralign">
+          <input type="submit" class="button button-primary" value="continue">
       </div>
-
   </div>
 </form>
 {% endblock %}

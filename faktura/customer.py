@@ -1,8 +1,12 @@
 from faktura import app
-from flask import request, render_template, send_file, redirect, make_response
+from flask import request, render_template, send_file, redirect, make_response, jsonify
 from faktura.models import db, Customer, Invoice
 from faktura.breadcrumbs import breadcrumbs
 
+@app.route('/customer/<int:customer_id>/json')
+def json_customer(customer_id):
+    customer = Customer.query.filter_by(id=customer_id).first()
+    return jsonify(customer=customer.to_json())
 
 @app.route('/customer/<int:customer_id>', methods=["GET", "POST"])
 def show_customer(customer_id):
