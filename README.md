@@ -1,5 +1,6 @@
 # faktura
-Simple invoicing webapplication using HTML templates.
+Simple invoicing webapplication using HTML templates. The goal of the application is to be an invoice pdf creator,
+with some minor customer-database features.
 
 # Installation
 I recommend using a virtualenv. [See this guide for a great explanation.](http://docs.python-guide.org/en/latest/dev/virtualenvs/)
@@ -19,6 +20,9 @@ To start the http-server as a standalone flask application:
 After you've got the application running, simply navigate to http://127.0.0.1:5000
 
 
+# Templating
+The PDF is currently created from the [render.html](faktura/static/templates/render.html) template.
+Change the look of the invoice by editing that document. A proper template editor is a future feature.
 
 # Todo
 See [TODO.md](TODO.md). Ideas at [IDEAS.md](IDEAS.md)

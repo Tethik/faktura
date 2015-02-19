@@ -1,8 +1,9 @@
 from faktura import app
 from flask import request, render_template, send_file, redirect, make_response
-from faktura.models import db, Customer, Invoice, InvoiceRow
+from faktura.models import db, Customer, Invoice, InvoiceRow, TemplateVariable
 from decimal import Decimal
 from faktura.breadcrumbs import breadcrumbs
+from datetime import datetime
 import pdfkit
 import os
 
@@ -82,7 +83,7 @@ def create():
 
 def invoice_from_form(form):
     invoice = Invoice()
-
+    invoice.due = datetime.strptime(form["duedate"], "%Y-%m-%d")
     # invoice.customer.name = form["customerName"]
     # invoice.customer.street = form["customerStreet"]
     # invoice.customer.city = form["customerCity"]
@@ -96,8 +97,11 @@ def invoice_from_form(form):
         invoice.total_tax += int(value) * tax
     return invoice
 
+def template_vars():
+    return dict((item.key, item.value) for item in TemplateVariable.query.all())
+
 def pdf_from_invoice(invoice):
-    html = render_template('invoices/render.html', invoice=invoice)
+    html = render_template('invoices/render.html', invoice=invoice, **template_vars())
     pdf = pdfkit.from_string(html, False)
     return pdf
 

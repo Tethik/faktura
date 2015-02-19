@@ -1,6 +1,42 @@
 {% extends "layout.html" %}
 {% block title %}Settings{% endblock %}
+{% block head %}
+<script src="/static/js/settings.js"></script>
+<style>
+  .preview  {
+    height: 800px;
+  }
+</style>
+{% endblock %}
 {% block body %}
 <h1><img src="/static/images/64px/gear.png"> Settings</h1>
-<p>Under construction. Look on the bright side, now you have something to look forward to!</p>
+<p>This page shows different settings</p>
+
+
+<div class="whitepaper">
+  <h3>Template Variables</h3>
+
+  <p>These variables are used in the HTML template when generating the pdf.</p>
+
+
+  <table class="u-full-width">
+    <thead>
+      <tr><th>Key</th><th>Value</th><th></th></tr>
+    </thead>
+    <tbody id="template-var-rows">
+      {% for var in variables %}
+        <tr>
+          <td><input type="text" value="{{var.key}}" disabled="disabled" name="key"></td>
+          <td><input type="text" value="{{var.value}}" name="value"></td>
+          <td><button name="saveVar" class="button-primary">save</button><button name="deleteVar" class="button">delete</button></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div>
+    <button id="newVar" class="button button-primary">Add new variable</button>
+  </div>
+  <!-- <p>Under construction. Look on the bright side, now you have something to look forward to!</p> -->
+</div>
 {% endblock %}

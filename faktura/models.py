@@ -52,3 +52,14 @@ class InvoiceRow(db.Model):
         self.description = description
         self.tax = vat
         self.value = cost
+
+class TemplateVariable(db.Model):
+    key = db.Column(db.String(100),  primary_key=True)
+    value = db.Column(db.String(250))
+
+    def __init__(self, key, value):
+        self.key = key
+        self.value = value
+
+    def to_json(self):
+        return dict(key=self.key, value=self.value)

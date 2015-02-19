@@ -39,7 +39,7 @@
     min-height: 100%;
     height: auto !important;
     height: 100%;
-    margin: 0 auto -200px;
+    margin: 0 auto -100px;
   }
 
   header {
@@ -48,7 +48,7 @@
   }
 
   footer, .push {
-    height: 200px;
+    height: 100px;
   }
 
   footer {
@@ -59,25 +59,28 @@
 <body>
   <div class="wrapper">
     <header>
-        <h1>Invoice</h1>
-        <b>Date created:</b> {{invoice.created}} <br />
+        <h1>Blacknode - Invoice</h1>
+        <b>Date created:</b> {{invoice.created.strftime('%Y-%m-%d')}} <br />
         <b>Invoice ID:</b> {{invoice.id}} <br />
-        <b>Date due:</b> {{invoice.due}} </br />
+        <b>Date due:</b> {{invoice.due.strftime('%Y-%m-%d')}} </br />
         <br />
 
+
+        <b>Customer:</b><br />
         {{invoice.customer.name}}<br />
         {{invoice.customer.street}}<br />
         {{invoice.customer.zip}} {{invoice.customer.city}}<br />
+
         <!-- Logo goes here maybe? -->
     </header>
 
-    <p>Thanks for using our services. </p>
+    <!-- <p>Thanks for using our services. </p> -->
 
     <div class="items">
       <table cellspacing="0">
         <thead>
         <tr>
-            <th class="lalign">Description</th><th></th><th class="ralign">VAT</th><th class="ralign">Amount</th>
+            <th class="lalign">Description</th><th></th><th class="ralign">VAT</th><th class="ralign">Amount (With VAT)</th>
         </tr>
       </thead>
       <tbody>
@@ -102,12 +105,29 @@
       </p>
     </div>
 
+    <br />
+    <p> Payment should be made to Bankgiro: {{test}}{{bankgiro}} and is <b>due</b> at the latest {{invoice.due.strftime('%Y-%m-%d')}}</p>
+
     <div class="push"></div>
   </div>
 
 <footer>
-<div>
-  <p><b>Company Ltc</b></p>
+<table>
+  <tr>
+    <td>
+  <p><b>Blacknode</b></p>
+  <p>Kellgrensgatan 14</p>
+  <p>112 18 Stockholm</p>
+    </td>
+    <td>
+      <p>www.blacknode.se</p>
+      <p>tethik@blacknode.se</p>
+      <p>+46768310779</p>
+    </td>
+    <td>
+      <p>Bankgiro: </p>
+    </td>
 </div>
+</table>
 </footer>
 </body>

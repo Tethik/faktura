@@ -84,3 +84,7 @@ body {
 .paginator li > a.current {
   text-decoration: underline;
 }
+
+input[disabled="disabled"] {
+  background-color: #CCC;
+}

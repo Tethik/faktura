@@ -15,9 +15,9 @@ $("#button-create").click(function() {
 })
 
 inputRow = '<tr> ' +
-          '<td><input type="text" name="description" placeholder="Atomic screwdriver"></td> ' +
-          '<td><input type="text" name="tax" value="25%"></td> ' +
-          '<td><input type="number" name="value" placeholder="1337"></td> ' +
+          '<td><input type="text" name="description" placeholder="Atomic screwdriver" required></td> ' +
+          '<td><input type="text" name="tax" value="25%" required></td> ' +
+          '<td><input type="number" name="value" placeholder="1337" required></td> ' +
           '<td><input class="button-primary" name="remove-row" type="button" value="Remove"></td> ' +
         '</tr>';
 
@@ -56,5 +56,14 @@ $('#customerSelect').change(function() {
 $("#invoice-rows").append(inputRow);
 
 $("#preview").hide()
-  bindRowRemoval()
+bindRowRemoval()
+$( ".datepicker" ).datepicker();
+$( ".datepicker" ).datepicker( "option", "dateFormat", "yy-mm-dd");
+curr = new Date();
+two_weeks_forward = 2*7*24*3600*1000 + curr.getTime();
+curr.setTime(two_weeks_forward)
+$("input[name='duedate']").datepicker('setDate', curr);
+
+
+
 });
