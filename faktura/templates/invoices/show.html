@@ -20,7 +20,12 @@
     <p class="u-full-width" name="customerZip" >{{invoice.customer.zip}}</p>
   </div>
 </div>
+<div>
+  <label for="customerReference">Reference Person:</label>
+  <p class="u-full-width">{{invoice.customer.reference}}</p>
+</div>
 
+<div class="whitepaper">
 <h2><img src="/static/images/64px/document.png"> Invoice rows</h2>
 <table class="u-full-width">
   <thead>
@@ -38,9 +43,11 @@
     {% endfor %}
   </tbody>
 </table>
+</div>
 
 <div>
   <a href="/invoice/{{invoice.id}}/pdf">Fetch pdf</a>
 </div>
+
 
 {% endblock %}

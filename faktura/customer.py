@@ -18,6 +18,7 @@ def show_customer(customer_id):
         customer.street = form["customerStreet"]
         customer.zip = form["customerZip"]
         customer.city = form["customerCity"]
+        customer.reference = form["customerReference"]
         db.session.commit()
 
     return render_template('customers/show.html', customer=customer,  invoices=invoices, breadcrumbs=breadcrumbs("Main Menu","Customers"))
@@ -54,6 +55,7 @@ def create_customer():
     customer.street = form["customerStreet"]
     customer.zip = form["customerZip"]
     customer.city = form["customerCity"]
+    customer.reference = request.form["customerReference"]
     db.session.add(customer)
     db.session.commit()
     return redirect('/customer/{}'.format(customer.id))

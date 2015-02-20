@@ -10,13 +10,15 @@ class Customer(db.Model):
     street = db.Column(db.String(250))
     city = db.Column(db.String(100))
     zip = db.Column(db.String(10))
+    reference = db.Column(db.String(250))
 
     def to_json(self):
         return dict(name=self.name,
             street=self.street,
             id=self.id,
             city=self.city,
-            zip=self.zip
+            zip=self.zip,
+            reference=self.reference
         )
 
 class Invoice(db.Model):
@@ -31,6 +33,7 @@ class Invoice(db.Model):
     total_value = db.Column(db.Integer)
     rows = db.relationship('InvoiceRow',
         backref='invoice', lazy='dynamic', cascade='all, delete-orphan')
+    total_after_tax = db.Column(db.Float)
 
     def __init__(self):
         self.due = datetime.now()
@@ -40,6 +43,7 @@ class Invoice(db.Model):
         self.rows = []
         self.total_tax = 0
         self.total_value = 0
+        self.total_after_tax = 0
 
 class InvoiceRow(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -48,10 +52,12 @@ class InvoiceRow(db.Model):
     value = db.Column(db.Integer)
     invoice_id = db.Column(db.Integer, db.ForeignKey('invoice.id'))
 
+
     def __init__(self, description, vat, cost):
         self.description = description
         self.tax = vat
-        self.value = cost
+        self.value = int(cost)
+        self.value_with_tax = self.value + vat*self.value
 
 class TemplateVariable(db.Model):
     key = db.Column(db.String(100),  primary_key=True)

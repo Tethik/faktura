@@ -42,6 +42,7 @@ $('#customerSelect').change(function() {
       $("input[name='customerStreet']").val(data.street);
       $("input[name='customerCity']").val(data.city);
       $("input[name='customerZip']").val(data.zip);
+      $("input[name='customerReference']").val(data.reference);
       $("#customerForm input").attr("disabled", "disabled");
     });
   } else {
@@ -49,6 +50,7 @@ $('#customerSelect').change(function() {
     $("input[name='customerStreet']").val("");
     $("input[name='customerCity']").val("");
     $("input[name='customerZip']").val("");
+    $("input[name='customerReference']").val("");
     $("#customerForm input").removeAttr("disabled");
   }
 });

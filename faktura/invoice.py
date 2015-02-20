@@ -72,6 +72,7 @@ def create():
         customer.street = request.form["customerStreet"]
         customer.city = request.form["customerCity"]
         customer.zip = request.form["customerZip"]
+        customer.reference = request.form["customerReference"]
         db.session.add(customer)
         db.session.commit()
         customer_id = customer.id
@@ -95,6 +96,7 @@ def invoice_from_form(form):
         invoice.rows.append(InvoiceRow(desc, tax, value))
         invoice.total_value += int(value)
         invoice.total_tax += int(value) * tax
+    invoice.total_after_tax += invoice.total_value + invoice.total_tax
     return invoice
 
 def template_vars():

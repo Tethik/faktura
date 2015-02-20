@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <head>
+  <meta charset="utf-8">
 <style>
   * {
     margin: 0;
@@ -44,7 +45,7 @@
 
   header {
       padding-top: 50px;
-      height: 200px;
+      height: 250px;
   }
 
   footer, .push {
@@ -70,6 +71,10 @@
         {{invoice.customer.name}}<br />
         {{invoice.customer.street}}<br />
         {{invoice.customer.zip}} {{invoice.customer.city}}<br />
+        <br />
+        {% if invoice.customer.reference %}
+        <b>Reference:</b> {{invoice.customer.reference}} <br />
+        {% endif %}
 
         <!-- Logo goes here maybe? -->
     </header>
@@ -80,7 +85,7 @@
       <table cellspacing="0">
         <thead>
         <tr>
-            <th class="lalign">Description</th><th></th><th class="ralign">VAT</th><th class="ralign">Amount (With VAT)</th>
+            <th class="lalign">Description</th><th></th><th class="ralign">VAT</th><th class="ralign">Amount (No VAT)</th><th class="ralign">Amount (With VAT)</th>
         </tr>
       </thead>
       <tbody>
@@ -90,6 +95,7 @@
           <td></td>
           <td class="ralign">{{row.tax}}</td>
           <td class="ralign">{{row.value}}</td>
+          <td class="ralign">{{row.value_with_tax}}</td>
         </tr>
       {% endfor %}
       </tbody>
@@ -98,15 +104,18 @@
 
     <div class="summary">
       <p class="ralign">
-        <b>Taxed:</b> {{invoice.total_tax}}
+        <b>Total Amount:</b> {{invoice.total_value}}
       </p>
       <p class="ralign">
-        <b>Total to pay:</b> {{invoice.total_value}}
+        <b>Total Tax:</b> +{{invoice.total_tax}}
+      </p>
+      <p class="ralign">
+        <b>Total to pay:</b> {{invoice.total_after_tax}}
       </p>
     </div>
 
     <br />
-    <p> Payment should be made to Bankgiro: {{test}}{{bankgiro}} and is <b>due</b> at the latest {{invoice.due.strftime('%Y-%m-%d')}}</p>
+    <p> Payment of {{invoice.total_after_tax}} SEK should be made to Bankgiro: {{bankgiro}} and is <b>due</b> at the latest {{invoice.due.strftime('%Y-%m-%d')}}.</p>
 
     <div class="push"></div>
   </div>
@@ -125,7 +134,8 @@
       <p>+46768310779</p>
     </td>
     <td>
-      <p>Bankgiro: </p>
+      <p>Bankgiro: {{bankgiro}}</p>
+      <p><b>{{extra}}</b></p>
     </td>
 </div>
 </table>
