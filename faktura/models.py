@@ -1,6 +1,7 @@
 from faktura import app
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from flask.ext.login import LoginManager, login_user, logout_user, login_required, current_user, UserMixin
 
 db = SQLAlchemy(app)
 
@@ -51,7 +52,6 @@ class InvoiceRow(db.Model):
     value = db.Column(db.Integer)
     invoice_id = db.Column(db.Integer, db.ForeignKey('invoice.id'))
 
-
     def __init__(self, description, vat, cost):
         self.description = description
         self.tax = vat
@@ -68,3 +68,8 @@ class TemplateVariable(db.Model):
 
     def to_json(self):
         return dict(key=self.key, value=self.value)
+
+class User(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(255), unique=True)
+    password = db.Column(db.String(255))

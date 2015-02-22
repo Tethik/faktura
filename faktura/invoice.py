@@ -6,10 +6,12 @@ from faktura.breadcrumbs import breadcrumbs
 from datetime import datetime
 import pdfkit
 import os
+from flask.ext.login import login_required
 
 
 
 @app.route('/invoices')
+@login_required
 def list():
     query = request.args.get('query', '').strip()
     page = int(request.args.get('p', 0))
@@ -21,11 +23,13 @@ def list():
     return render_template('invoices/list.html', invoices=invoices, breadcrumbs=breadcrumbs("Main Menu"), count=count, page=page, query=query)
 
 @app.route('/invoice/<int:invoice_id>')
+@login_required
 def show(invoice_id):
     invoice = Invoice.query.filter_by(id=invoice_id).first()
     return render_template('invoices/show.html', invoice=invoice, breadcrumbs=breadcrumbs("Main Menu","Invoices"))
 
 @app.route('/invoice/<int:invoice_id>/delete', methods=["GET","POST"])
+@login_required
 def delete_invoice(invoice_id):
     invoice = Invoice.query.filter_by(id=invoice_id).first()
     if request.method == "POST":
@@ -35,11 +39,13 @@ def delete_invoice(invoice_id):
     return render_template('invoices/delete.html', invoice=invoice, breadcrumbs=breadcrumbs("Main Menu","Invoices"))
 
 @app.route('/invoice/<int:invoice_id>/pdf')
+@login_required
 def pdf(invoice_id): # acl..
     pdfdir = app.config["PDF_DIRECTORY"]
     return send_file('{}/{}.pdf'.format(pdfdir, invoice_id))
 
 @app.route('/invoice/create/for_customer/<int:customer_id>', methods=['POST','GET'])
+@login_required
 def create_for_customer(customer_id):
     customer = Customer.query.filter(Customer.id == customer_id).first()
     if request.method == "GET":
@@ -60,6 +66,7 @@ def create_for_customer(customer_id):
 
 
 @app.route('/invoice/create', methods=['POST','GET'])
+@login_required
 def create():
     if request.method == 'GET':
         customers = db.session.query(Customer.id, Customer.name).all() # bottleneck
@@ -108,6 +115,7 @@ def pdf_from_invoice(invoice):
     return pdf
 
 @app.route('/invoice/render/<int:customer_id>', methods=['POST'])
+@login_required
 def render(customer_id):
     invoice = invoice_from_form(request.form)
     invoice.customer = Customer.query.filter(Customer.id ==  customer_id).first()

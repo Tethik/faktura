@@ -28,9 +28,14 @@ Change the look of the invoice by editing that document. A proper template edito
 See [TODO.md](TODO.md). Ideas at [IDEAS.md](IDEAS.md)
 
 # Credits
-Thanks to the following libs for doing basically all my work for me:
+Thanks to the following frameworks and resources:
 * [Flask](http://flask.pocoo.org/)
 * [flask-sqlalchemy](http://flask-sqlalchemy.pocoo.org/)
+* [flask-login](https://flask-login.readthedocs.org/en/latest/)
 * [pdfkit](https://pypi.python.org/pypi/pdfkit)
 * [skeleton css framework](http://getskeleton.com)
-* [flat circle-icons from elegantthemes.com] (http://www.elegantthemes.com/blog/freebie-of-the-week/beautiful-flat-icons-for-free)
+* [flat circle-icons from elegantthemes.com](http://www.elegantthemes.com/blog/freebie-of-the-week/beautiful-flat-icons-for-free)
+* http://pixabay.com for cat pictures under creative commons
+  - http://pixabay.com/en/cat-animal-cute-pet-feline-kitty-618470/
+  - http://pixabay.com/en/cat-animal-snow-188088/
+  - http://pixabay.com/en/cat-animal-pet-cats-close-up-300572/

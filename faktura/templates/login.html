@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>{% block title %}Faktura{% endblock %}</title>
+  <title>Authenticate!</title>
 
   <!-- Mobile Specific Metas
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -21,6 +21,7 @@
   <link href="/static/css/jquery-ui.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/static/css/normalize.css">
   <link rel="stylesheet" href="/static/css/skeleton.css">
+
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/static/css/faktura.css">
 
@@ -29,30 +30,41 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="icon" type="image/png" href="/static/images/favicon.png">
 
-
- <!-- JS -->
- <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
- <script src="/static/js/jquery-ui.js"></script>
-  {% block head %}
-  {% endblock %}
+  <style>
+    body {
+      background-color: #F4D03F;
+    }
+  </style>
 </head>
 <body>
-<div class="container" id="main">
-  <div class="row">
-    <div class="six columns"  id="breadcrumbs">
-    {% for item in breadcrumbs %}
-      <li><a href="{{item.url}}">{{ item.text }}</a></li>
-    {% endfor %}
-    </div>
-    <div class="six columns ralign logout">
-      <a href="/logout">Logout</a>
-    </div>
 
-  </div>
-  <div id="content">
-{% block body %}
+<div class="container">
+    <div class="row" id="loginmain">
+      <div class="six columns" id="pretty">
+      </div>
+      <div class="six columns" id="loginbox">
+        <h2>Please authenticate</h2>
 
-{% endblock %}
-  </div>
+      {% if msg %}
+        <div class="msg">{{msg}}</div>
+      {% endif %}
+
+      <form method="POST">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" name="username" class="u-full-width" value="{{username}}" required>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" name="password" class="u-full-width" required>
+        </div>
+        <div class="ralign">
+          <input type="submit" class="button-primary" value="Login">
+        </div>
+      </form>
+      </div>
+    </div>
 </div>
+</div>
+
 </body>
