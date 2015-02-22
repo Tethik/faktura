@@ -39,7 +39,6 @@ class Invoice(db.Model):
         self.due = datetime.now()
         self.reference_id = 1337
         self.created = datetime.now()
-        self.customer = Customer()
         self.rows = []
         self.total_tax = 0
         self.total_value = 0
