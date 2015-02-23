@@ -33,6 +33,15 @@
  <script src="/static/js/jquery-ui.js"></script>
   {% block head %}
   {% endblock %}
+
+  {% if not current_user.is_authenticated() %}
+  <style>
+    body {
+      background-color: #F4D03F;
+    }
+  </style>
+  {% endif %}
+
 </head>
 <body>
 <div class="container" id="main">
