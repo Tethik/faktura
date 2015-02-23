@@ -10,6 +10,7 @@
 {% endblock %}
 {% block body %}
   <form method="post" action="/invoice/create">
+    <input type="hidden" name="_csrf_token" value="{{csrf_token()}}">
     <div class="row">
       <h2><img src="/static/images/64px/profle.png"> Customer details</h2>
       <label for="customer_id">Existing customer</label>

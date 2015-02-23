@@ -3,6 +3,7 @@
 {% block body %}
 <h2><img src="/static/images/64px/profle.png"> Customer details</h2>
 <form method="POST" action="/customer/{{customer.id}}">
+  <input type="hidden" name="_csrf_token" value="{{csrf_token()}}">
 <div>
   <label for="customerName">Name</label>
   <input class="u-full-width" type="text" value="{{customer.name}}" placeholder="Isaac Asimov" name="customerName" required>
@@ -35,7 +36,9 @@
 <br />
 <hr />
 
+<div class="whitepaper">
 <h2><img src="/static/images/64px/document.png"> Invoices</h2>
+<a href="/invoice/create/for_customer/{{customer.id}}" class="button button-primary">New Invoice</a>
 <p>Invoices related to this customer</p>
 <table class="u-full-width">
   <thead>
@@ -54,8 +57,8 @@
     <tr>
       <td>{{invoice.id}}</td>
       <td>{{invoice.customer.name}}</td>
-      <td>{{invoice.created}}</td>
-      <td>{{invoice.due}}</td>
+      <td>{{invoice.created.strftime('%Y-%m-%d')}}</td>
+      <td>{{invoice.due.strftime('%Y-%m-%d')}}</td>
       <td>{{invoice.total_value}}</td>
       <td><a class="button" href="/invoice/{{invoice.id}}">open</a></td>
       <!-- <td><a href="/invoice/{{invoice.id}}">delete</a></td> -->
@@ -63,4 +66,5 @@
   {% endfor %}
   </tbody>
 </table>
+</div>
 {% endblock %}

@@ -9,6 +9,7 @@ import faktura.auth
 import faktura.invoice
 import faktura.settings
 import faktura.customer
+import faktura.csrf
 
 @app.route('/')
 @login_required

@@ -3,6 +3,7 @@
 {% block body %}
 <h2><img src="/static/images/64px/profle.png"> Customer details</h2>
 <form method="post" action="/customer/create">
+  <input type="hidden" name="_csrf_token" value="{{csrf_token()}}">
 <div>
   <label for="customerName">Name</label>
   <input class="u-full-width" type="text" value="" placeholder="Isaac Asimov" name="customerName" required>

@@ -11,6 +11,7 @@
 {% block body %}
 <h2><img src="/static/images/64px/document.png"> Invoice Details</h2>
 <form method="post" action="/invoice/create">
+  <input type="hidden" name="_csrf_token" value="{{csrf_token()}}">
 <p><b>Customer:</b> {{customer.name}}</p>
 
 <p>
@@ -47,7 +48,7 @@
 
 <div id="preview">
   <h2>Preview</h2>
-  
+
   <iframe name="preview" class="u-full-width preview"></iframe>
 </div>
 

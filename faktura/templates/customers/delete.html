@@ -7,6 +7,7 @@
   database too.</p>
 
 <form method="POST" action="">
+  <input type="hidden" name="_csrf_token" value="{{csrf_token()}}">
     <input type="submit" class="button" value="Yes">
     <a class="button" href="javascript:history.back()">No</a>
 </form>
