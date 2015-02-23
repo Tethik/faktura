@@ -9,6 +9,7 @@
 <h1>Edit User</h1>
 <form method="POST">
   <input type="hidden" name="_csrf_token" value="{{csrf_token()}}">
+  <input type="hidden" name="action" value="details">
   <div>
     <label for="username">Username:</label>
     <input class="u-full-width" type="text" name="username" disabled="disabled" value="{{user.username}}">
@@ -20,23 +21,24 @@
   <input type="submit" class="button-primary" value="Save">
 </form>
 
-  <hr />
+<hr />
 
-  <h3>New Password</h3>
+<h3>New Password</h3>
 
-<form method="POST" action="/user/{{user.id}}/change_password">
-  <!-- <input type="hidden" name="_csrf_token" value="{{csrf_token()}}"> -->
+<form method="POST">
+  <input type="hidden" name="_csrf_token" value="{{csrf_token()}}">
+  <input type="hidden" name="action" value="changepassword">
   <div>
     <label for="old_password">Old Password:</label>
-    <input class="u-full-width" type="text" name="old_password" value="">
+    <input class="u-full-width" type="password" name="old_password" value="" required>
   </div>
   <div>
     <label for="new_password">New Password:</label>
-    <input class="u-full-width" type="text" name="new_password" value="">
+    <input class="u-full-width" type="password" name="new_password" value="" required>
   </div>
   <div>
     <label for="rep_password">Repeated:</label>
-    <input class="u-full-width" type="text" name="rep_password" value="">
+    <input class="u-full-width" type="password" name="rep_password" value="" required>
   </div>
   <input type="submit" class="button-primary" value="Save">
 </form>
