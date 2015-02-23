@@ -8,6 +8,6 @@ from faktura.auth import create_user
 app.config.from_pyfile(os.getcwd() + "/faktura.cfg")
 db.create_all()
 
-#create_user("tethik", "password")
+# create_user("tethik", "password")
 
 app.run()

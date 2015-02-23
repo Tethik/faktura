@@ -1,7 +1,7 @@
 from faktura import app
 from flask import request, render_template, send_file, redirect, make_response, jsonify
 from faktura.breadcrumbs import breadcrumbs
-from faktura.models import db, TemplateVariable
+from faktura.models import db, TemplateVariable, User
 from flask.ext.login import login_required
 from faktura.csrf import generate_csrf_token
 
@@ -10,7 +10,8 @@ from faktura.csrf import generate_csrf_token
 @login_required
 def settings():
     variables = TemplateVariable.query.all()
-    return render_template('settings.html', variables=variables, breadcrumbs=breadcrumbs("Main Menu"))
+    users = User.query.all()
+    return render_template('settings.html', variables=variables, users=users, breadcrumbs=breadcrumbs("Main Menu"))
 
 
 @app.route('/vars/create', methods=['POST'])

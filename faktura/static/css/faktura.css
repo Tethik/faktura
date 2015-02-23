@@ -11,6 +11,7 @@ body {
     border: 1px solid #95A5A6;
     background-color: #ECECEC;
     box-shadow: 4px 4px #95A5A6;
+    margin-bottom: 50px;
 }
 
 #breadcrumbs {
@@ -138,6 +139,15 @@ input[disabled="disabled"] {
 
 #loginbox .msg {
   background-color: #F4D03F;
+  border-radius: 5px;
+  padding: 5px;
+  animation: flash 0.5s;
+  margin-bottom: 15px;
+  padding-left: 10px;
+}
+
+ .msg {
+  background-color: #4183D7;
   border-radius: 5px;
   padding: 5px;
   animation: flash 0.5s;
