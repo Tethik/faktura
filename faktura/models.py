@@ -2,6 +2,7 @@ from faktura import app
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from flask.ext.login import LoginManager, login_user, logout_user, login_required, current_user, UserMixin
+import uuid
 
 db = SQLAlchemy(app)
 
@@ -45,6 +46,7 @@ class Invoice(db.Model):
         self.total_tax = 0
         self.total_value = 0
         self.total_after_tax = 0
+        self.link_token = str(uuid.uuid4())
 
 class InvoiceRow(db.Model):
     id = db.Column(db.Integer, primary_key=True)

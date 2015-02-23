@@ -20,10 +20,12 @@
     <p class="u-full-width" name="customerZip" >{{invoice.customer.zip}}</p>
   </div>
 </div>
+{% if invoice.customer.reference %}
 <div>
   <label for="customerReference">Reference Person:</label>
   <p class="u-full-width">{{invoice.customer.reference}}</p>
 </div>
+{% endif %}
 
 <div class="whitepaper">
 <h2><img src="/static/images/64px/document.png"> Invoice rows</h2>
@@ -49,6 +51,18 @@
 <div>
   <a href="/invoice/{{invoice.id}}/pdf" class="button">Fetch pdf</a>
 </div>
+
+<div>
+  <label for="link">Anonymous access link:</label>
+  <input class="u-full-width" type="text" name="link" value="{{invoice.link_token}}" readonly>
+</div>
+
+<script>
+$(function() {
+  token = $("input[name='link']").val()
+  $("input[name='link']").val(location.protocol + "//" + document.domain + (location.port ? ":" + location.port : "") + "/invoice/anon/" + token)
+})
+</script>
 
 
 {% endblock %}

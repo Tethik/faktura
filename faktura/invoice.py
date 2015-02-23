@@ -28,6 +28,11 @@ def show(invoice_id):
     invoice = Invoice.query.filter_by(id=invoice_id).first()
     return render_template('invoices/show.html', invoice=invoice, breadcrumbs=breadcrumbs("Main Menu","Invoices"))
 
+@app.route('/invoice/anon/<link_token>')
+def anon_show(link_token):
+    invoice = Invoice.query.filter_by(link_token=link_token).first()
+    return render_template('invoices/show.html', invoice=invoice)
+
 @app.route('/invoice/<int:invoice_id>/delete', methods=["GET","POST"])
 @login_required
 def delete_invoice(invoice_id):
