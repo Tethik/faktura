@@ -35,6 +35,7 @@ class Invoice(db.Model):
     rows = db.relationship('InvoiceRow',
         backref='invoice', lazy='dynamic', cascade='all, delete-orphan')
     total_after_tax = db.Column(db.Float)
+    link_token = db.Column(db.String(255))
 
     def __init__(self):
         self.due = datetime.now()
