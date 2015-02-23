@@ -94,7 +94,8 @@ body {
 }
 
 .paginator li > a.current {
-  text-decoration: underline;
+  font-weight: bold;
+  /*text-decoration: underline;*/
 }
 
 input[disabled="disabled"] {

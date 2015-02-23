@@ -11,9 +11,9 @@
       {% for i in range(0, count // 10 + 1) %}
       <ul class="paginator">
         {% if i == page %}
-          <li><a href="/customers?query={{query}}&p={{i}}" class="current">{{i}}</a></li>
+          <li><a href="/customers?query={{query}}&p={{i}}" class="current">{{i+1}}</a></li>
         {% else %}
-          <li><a href="/customers?query={{query}}&p={{i}}">{{i}}</a></li>
+          <li><a href="/customers?query={{query}}&p={{i}}">{{i+1}}</a></li>
         {% endif %}
       </ul>
       {% endfor %}
