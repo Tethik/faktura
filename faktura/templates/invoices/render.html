@@ -60,7 +60,7 @@
 <body>
   <div class="wrapper">
     <header>
-        <h1>Blacknode - Invoice</h1>
+        <h1>{{companyName}} - Invoice</h1>
         <b>Date created:</b> {{invoice.created.strftime('%Y-%m-%d')}} <br />
         <b>Invoice ID:</b> {{invoice.id}} <br />
         <b>Date due:</b> {{invoice.due.strftime('%Y-%m-%d')}} </br />
@@ -124,14 +124,14 @@
 <table>
   <tr>
     <td>
-  <p><b>Blacknode</b></p>
-  <p>Kellgrensgatan 14</p>
-  <p>112 18 Stockholm</p>
+      <p><b>{{companyName}}</b></p>
+      <p>{{companyStreet}}</p>
+      <p>{{companyZip}} {{companyCity}}</p>
     </td>
     <td>
-      <p>www.blacknode.se</p>
-      <p>tethik@blacknode.se</p>
-      <p>+46768310779</p>
+      <p>{{companyWebsite}}</p>
+      <p>{{companyEmail}}</p>
+      <p>{{companyTelephone}}</p>
     </td>
     <td>
       <p>Bankgiro: {{bankgiro}}</p>

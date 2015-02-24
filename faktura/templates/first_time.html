@@ -10,34 +10,47 @@
 {% if msg %}
   <div class="msg">{{msg}}</div>
 {% endif %}
-
 <form method="POST">
-  <input type="hidden" name="_csrf_token" value="{{csrf_token()}}">
-  <div>
-    <label for="username">Username:</label>
-    <input class="u-full-width" type="text" name="username" required>
-  </div>
+<div class="whitepaper">
+    <input type="hidden" name="_csrf_token" value="{{csrf_token()}}">
+    <div>
+      <label for="username">Username:</label>
+      <input class="u-full-width" type="text" name="username" required>
+    </div>
 
-  <div>
-    <label for="email">Email:</label>
-    <input class="u-full-width" type="email" name="email" required>
-  </div>
+    <div>
+      <label for="email">Email:</label>
+      <input class="u-full-width" type="email" name="email" required>
+    </div>
 
-  <div>
-    <label for="password">Password:</label>
-    <input class="u-full-width" type="password" name="password" required>
-  </div>
+    <div>
+      <label for="password">Password:</label>
+      <input class="u-full-width" type="password" name="password" required>
+    </div>
 
-  <div>
-    <label for="repeat">Repeat the password:</label>
-    <input class="u-full-width" type="password" name="repeat" required>
-  </div>
-
+    <div>
+      <label for="repeat">Repeat the password:</label>
+      <input class="u-full-width" type="password" name="repeat" required>
+    </div>
+</div>
   <hr />
+<div class="whitepaper">
+  <p> The following values will be used for your invoice template. You can
+    change them at any time by going to the settings page.</p>
 
-  <div class="ralign">
-    <input type="submit" value="continue" class="button-primary">
+  {% for var in templateVariables %}
+  <div>
+    <label for="{{var}}">{{var}}:</label>
+    <input class="u-full-width" type="text" name="{{var}}">
   </div>
+  {% endfor %}
+</div>
+
+<br />
+
+<div class="ralign">
+  <input type="submit" value="continue" class="button-primary">
+</div>
 
 </form>
 

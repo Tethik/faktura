@@ -1,7 +1,7 @@
 from faktura import app
 from flask import request, render_template, redirect, abort
 from flask.ext.login import LoginManager, login_user, logout_user, login_required, current_user
-from faktura.models import db, User
+from faktura.models import db, User, TemplateVariable
 from passlib.hash import sha256_crypt
 
 login_manager = LoginManager()
@@ -40,11 +40,25 @@ def first_time():
     if not (trigger_first_time() and User.query.count() == 0):
         abort(403)
 
+    vars_to_create = ["companyName","companyStreet","companyCity","companyZip","companyTelephone","companyEmail","companyWebsite","bankgiro"]
+    if request.method == "GET" and TemplateVariable.query.count() == 0:
+        for var in vars_to_create:
+            v = TemplateVariable(var, "")
+            db.session.add(v)
+        db.session.commit()
+
+
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
 
         repeat = request.form["repeat"]
+
+        for var in vars_to_create:
+            if request.form.get(var):
+                v = TemplateVariable.query.filter_by(key=var).first()
+                v.value = request.form.get(var)
+
 
         if repeat != password:
             return render_template("first_time.html", msg="Passwords must be the same.")
@@ -54,7 +68,7 @@ def first_time():
         login_user(user)
         return redirect("/")
 
-    return render_template("first_time.html")
+    return render_template("first_time.html", templateVariables=vars_to_create)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
