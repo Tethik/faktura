@@ -1,5 +1,5 @@
 from faktura import app
-from flask import request, render_template, send_file, redirect, make_response
+from flask import request, render_template, send_file, redirect, make_response, session
 from faktura.models import db, Customer, Invoice, InvoiceRow, TemplateVariable
 from decimal import Decimal
 from faktura.breadcrumbs import breadcrumbs
@@ -7,8 +7,6 @@ from datetime import datetime
 import pdfkit
 import os
 from flask.ext.login import login_required
-
-
 
 @app.route('/invoices')
 @login_required
@@ -97,14 +95,14 @@ def create():
 def invoice_from_form(form):
     invoice = Invoice()
     invoice.due = datetime.strptime(form["duedate"], "%Y-%m-%d")
-    # invoice.customer.name = form["customerName"]
-    # invoice.customer.street = form["customerStreet"]
-    # invoice.customer.city = form["customerCity"]
-    # invoice.customer.zip = form["customerZip"]
 
     for i in range(len(form.getlist("description"))):
         desc, tax, value = form.getlist("description")[i], form.getlist("tax")[i], form.getlist("value")[i]
-        tax = Decimal("0." + tax.replace("%",""))
+        decimals = tax.replace("%","")
+        if decimals.isnumeric():
+            tax = Decimal("0." + decimals)
+        else:
+            tax = 0.25 #default value... ugly but avoids validation here.
         invoice.rows.append(InvoiceRow(desc, tax, value))
         invoice.total_value += int(value)
         invoice.total_tax += int(value) * tax
@@ -127,4 +125,7 @@ def render(customer_id):
     pdf = pdf_from_invoice(invoice)
     response = make_response(pdf)
     response.headers['Content-Type'] = "application/pdf"
+    # ugly kludge way of persisting the csrftoken on this request. The csrftoken must be valid to actually get to this point, or it would be a bit of a security hole...
+    if request.form.get('_csrf_token'):
+        session['_csrf_token'] = request.form.get('_csrf_token')
     return response
