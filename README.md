@@ -11,7 +11,11 @@ Requirements are collected in the requirements.txt file.
 You'll also need `wkhtmltopdf`, which is used by pdfkit.
 `apt-get install wkhtmltopdf` or your equivalent packagemanager.
 
-Configuration can be done in the faktura.cfg file, where you can change the sql uri used by sqlalchemy. By default it will use a sqllite database, so you don't have to do anything. Generated pdfs are saved in the `pdfs/`folder for now.
+Configuration can be done in the faktura.cfg file, where you can change the sql uri used by sqlalchemy. By default it will use a sqllite database, so you don't have to do anything. Generated pdfs are saved in the `pdfs/` folder.
+
+## On a server
+If you're running this on a VPS, you'll likely need `xvfb` as a virtual x-server.
+[Check out Server.md for a short how-to install for debian](Server.md)
 
 # Demo Usage
 To start the http-server as a standalone flask application:

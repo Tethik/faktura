@@ -1,4 +1,6 @@
 #Todo
+* (Bug) Fix CSRF protection on the preview functionality. Currently it breaks if you preview an invoice, since no new token is generated.
+* Validation of input
 * No CDN for best offline compatibility.
   - The Google Font is the only issue at the moment
 * Mailing
