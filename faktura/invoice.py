@@ -98,7 +98,7 @@ def invoice_from_form(form):
 
     for i in range(len(form.getlist("description"))):
         desc, tax, value = form.getlist("description")[i], form.getlist("tax")[i], form.getlist("value")[i]
-        decimals = tax.replace("%","")
+        decimals = tax.replace("%","").replace("-","")
         if decimals.isnumeric():
             tax = Decimal("0." + decimals)
         else:
