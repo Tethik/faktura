@@ -12,9 +12,17 @@ from flask.ext.login import login_required
 @login_required
 def list():
     query = request.args.get('query', '').strip()
-    page = int(request.args.get('p', 0))
+    page = 0
+    try:
+        page = int(request.args.get('p', 0))
+    except:
+        pass
 
-    q = Invoice.query.filter(Customer.name.like('{}%'.format(query))).limit(10).offset(10*page)
+    q = Invoice.query.\
+        join(Invoice.customer).\
+        filter(Customer.name.like('{}%'.format(query))).\
+        order_by(Invoice.id.desc()).\
+        limit(10).offset(10*page)
     count = q.count()
     invoices = q.all()
 
