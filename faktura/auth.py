@@ -37,7 +37,7 @@ def authenticate(username, password):
 
 @app.route("/first_time", methods=["GET", "POST"])
 def first_time():
-    if not (trigger_first_time() and User.query.count() == 0):
+    if not trigger_first_time():
         abort(403)
 
     vars_to_create = ["companyName","companyStreet","companyCity","companyZip","companyTelephone","companyEmail","companyWebsite","bankgiro"]
@@ -59,7 +59,6 @@ def first_time():
                 v = TemplateVariable.query.filter_by(key=var).first()
                 v.value = request.form.get(var)
 
-
         if repeat != password:
             return render_template("first_time.html", msg="Passwords must be the same.")
         user = create_user(username, password)
@@ -72,7 +71,7 @@ def first_time():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    if trigger_first_time() and User.query.count() == 0:
+    if trigger_first_time():
         return redirect("/first_time")
 
     if request.method == "POST":

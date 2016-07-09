@@ -121,6 +121,8 @@ def template_vars():
     return dict((item.key, item.value) for item in TemplateVariable.query.all())
 
 def pdf_from_invoice(invoice):
+    for row in invoice.rows:
+        row.tax_percent = str(row.tax * 100) +"%"
     html = render_template('invoices/render.html', invoice=invoice, **template_vars())
     pdf = pdfkit.from_string(html, False)
     return pdf
