@@ -1,13 +1,18 @@
 from faktura import app
-from faktura.models import db
 import os
-from faktura.auth import create_user
+from flask_script import Manager
+from flask_migrate import Migrate, MigrateCommand
+from faktura.models import db
 
+if __name__ == "__main__":
+    cfg_file = os.getcwd() + "/faktura.cfg"
+    print(cfg_file)
 
+    app.debug = True
+    app.config.from_pyfile(cfg_file)
 
-app.config.from_pyfile(os.getcwd() + "/faktura.cfg")
-db.create_all()
-
-# create_user("tethik", "password")
-
-app.run()
+    migrate = Migrate(app, db)
+    
+    manager = Manager(app)
+    manager.add_command('db', MigrateCommand)
+    manager.run()
