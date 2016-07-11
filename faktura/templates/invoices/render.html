@@ -45,7 +45,7 @@
 
   header {
       padding-top: 50px;
-      height: 300px;
+      height: 275px;
   }
 
   footer, .push {
@@ -66,20 +66,27 @@
         <b>Date due:</b> {{invoice.due.strftime('%Y-%m-%d')}} </br />
         <br />
 
-
-        <b>Customer:</b><br />
-        {{invoice.customer.name}}<br />
-        {{invoice.customer.street}}<br />
-        {{invoice.customer.zip}} {{invoice.customer.city}}<br />
-        <br />
-        {% if invoice.customer.reference %}
-        <b>Reference:</b> {{invoice.customer.reference}} <br />
-        {% endif %}
+        <table>
+          <tr>
+            <td>
+              <b>Customer:</b><br />
+              {{invoice.customer.name}}<br />
+              {{invoice.customer.street}}<br />
+              {{invoice.customer.zip}} {{invoice.customer.city}}<br />
+            </td>
+            <td>
+              {% if invoice.customer.organisation_number %}
+              <b>Org Nr:</b> {{invoice.customer.organisation_number}} <br />
+              {% endif %}
+              {% if invoice.customer.reference %}
+              <b>Reference:</b> {{invoice.customer.reference}} <br />
+              {% endif %}
+            </td>
+          </tr>
+        </table>
 
         <!-- Logo goes here maybe? -->
     </header>
-
-    <!-- <p>Thanks for using our services. </p> -->
 
     <div class="items">
       <table cellspacing="0">

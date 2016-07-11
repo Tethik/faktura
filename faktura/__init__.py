@@ -3,7 +3,6 @@ from flask.ext.login import login_required, current_user
 
 app = Flask(__name__)
 
-
 import faktura.models
 import faktura.auth
 import faktura.invoice

@@ -7,6 +7,7 @@ from datetime import datetime
 import pdfkit
 import os
 from flask.ext.login import login_required
+from faktura.customer import _update_customer_from_form
 
 @app.route('/invoices')
 @login_required
@@ -32,11 +33,15 @@ def list():
 @login_required
 def show(invoice_id):
     invoice = Invoice.query.filter_by(id=invoice_id).first()
+    for row in invoice.rows:
+        row.tax_percent = str(row.tax * 100) +"%"
     return render_template('invoices/show.html', invoice=invoice, breadcrumbs=breadcrumbs("Main Menu","Invoices"))
 
 @app.route('/invoice/anon/<link_token>')
 def anon_show(link_token):
     invoice = Invoice.query.filter_by(link_token=link_token).first()
+    for row in invoice.rows:
+        row.tax_percent = str(row.tax * 100) +"%"
     return render_template('invoices/show.html', invoice=invoice)
 
 @app.route('/invoice/<int:invoice_id>/delete', methods=["GET","POST"])
@@ -86,11 +91,7 @@ def create():
     customer_id = int(request.form["customer_id"])
     if customer_id < 0: # new customerorm
         customer = Customer()
-        customer.name = request.form["customerName"]
-        customer.street = request.form["customerStreet"]
-        customer.city = request.form["customerCity"]
-        customer.zip = request.form["customerZip"]
-        customer.reference = request.form["customerReference"]
+        _update_customer_from_form(customer, request.form)
         db.session.add(customer)
         db.session.commit()
         customer_id = customer.id

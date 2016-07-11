@@ -10,18 +10,21 @@ def json_customer(customer_id):
     customer = Customer.query.filter_by(id=customer_id).first()
     return jsonify(customer=customer.to_json())
 
+def _update_customer_from_form(customer, form):
+    customer.name = form["customerName"]
+    customer.street = form["customerStreet"]
+    customer.zip = form["customerZip"]
+    customer.city = form["customerCity"]
+    customer.reference = form["customerReference"]
+    customer.organisation_number = form["customerOrganisationNumber"]
+
 @app.route('/customer/<int:customer_id>', methods=["GET", "POST"])
 @login_required
 def show_customer(customer_id):
     customer = Customer.query.filter_by(id=customer_id).first()
     invoices = Invoice.query.filter_by(customer_id=customer_id).order_by(Invoice.id.desc()).all()
     if request.method == "POST":
-        form = request.form
-        customer.name = form["customerName"]
-        customer.street = form["customerStreet"]
-        customer.zip = form["customerZip"]
-        customer.city = form["customerCity"]
-        customer.reference = form["customerReference"]
+        _update_customer_from_form(customer, request.form)
         db.session.commit()
 
     return render_template('customers/show.html', customer=customer,  invoices=invoices, breadcrumbs=breadcrumbs("Main Menu","Customers"))
@@ -55,13 +58,8 @@ def create_customer():
     if request.method == "GET":
         return render_template('customers/create.html', breadcrumbs=breadcrumbs("Main Menu","Customers"))
 
-    form = request.form
     customer = Customer()
-    customer.name = form["customerName"]
-    customer.street = form["customerStreet"]
-    customer.zip = form["customerZip"]
-    customer.city = form["customerCity"]
-    customer.reference = request.form["customerReference"]
+    _update_customer_from_form(customer, request.form)
     db.session.add(customer)
     db.session.commit()
     return redirect('/customer/{}'.format(customer.id))

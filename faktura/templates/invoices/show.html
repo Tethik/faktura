@@ -26,20 +26,26 @@
   <p class="u-full-width">{{invoice.customer.reference}}</p>
 </div>
 {% endif %}
+{% if invoice.customer.organisation_number %}
+<div>
+  <label for="customerOrganisationNumber">Organisation Number:</label>
+  <p class="u-full-width">{{invoice.customer.organisation_number}}</p>
+</div>
+{% endif %}
 
 <div class="whitepaper">
 <h2><img src="/static/images/64px/document.png"> Invoice rows</h2>
 <table class="u-full-width">
   <thead>
     <tr>
-      <th>Description</th><th>VAT (%)</th><th>Cost</th>
+      <th>Description</th><th>VAT</th><th>Cost</th>
     </tr>
   </thead>
   <tbody id="invoice-rows">
     {% for row in invoice.rows %}
         <tr>
           <td>{{row.description}}</td>
-          <td>{{row.tax}}</td>
+          <td>{{row.tax_percent}}</td>
           <td>{{row.value}}</td>
         </tr>
     {% endfor %}

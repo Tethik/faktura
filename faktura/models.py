@@ -13,6 +13,7 @@ class Customer(db.Model):
     city = db.Column(db.String(100))
     zip = db.Column(db.String(10))
     reference = db.Column(db.String(250))
+    organisation_number = db.Column(db.String(100))
 
     def to_json(self):
         return dict(name=self.name,

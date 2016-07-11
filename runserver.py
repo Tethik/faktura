@@ -12,7 +12,8 @@ if __name__ == "__main__":
     app.config.from_pyfile(cfg_file)
 
     migrate = Migrate(app, db)
-    
+
     manager = Manager(app)
     manager.add_command('db', MigrateCommand)
+    print(db.engine)
     manager.run()
