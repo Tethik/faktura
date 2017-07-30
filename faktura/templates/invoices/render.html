@@ -81,6 +81,9 @@
               {% if invoice.customer.reference %}
               <b>Reference:</b> {{invoice.customer.reference}} <br />
               {% endif %}
+              {% if invoice.customer.vat_number %}
+              <b>VAT Number:</b> {{invoice.customer.vat_number}} <br />
+              {% endif %}
             </td>
           </tr>
         </table>
@@ -142,6 +145,9 @@
     </td>
     <td>
       <p>Bankgiro: {{bankgiro}}</p>
+      {% if invoice.customer.vat_number %} <!-- If the customer has a VAT number they probably also need mine. -->
+          <p>VAT Number: {{companyVatNumber}}</p>
+      {% endif %}
       <p><b>{{extra}}</b></p>
     </td>
 </div>

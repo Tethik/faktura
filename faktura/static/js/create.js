@@ -43,6 +43,8 @@ $('#customerSelect').change(function() {
       $("input[name='customerCity']").val(data.city);
       $("input[name='customerZip']").val(data.zip);
       $("input[name='customerReference']").val(data.reference);
+      $("input[name='customerOrganisationNumber']").val(data.organisation_number);
+      $("input[name='customerVatNumber']").val(data.vat_number);
       $("#customerForm input").attr("disabled", "disabled");
     });
   } else {
@@ -51,6 +53,8 @@ $('#customerSelect').change(function() {
     $("input[name='customerCity']").val("");
     $("input[name='customerZip']").val("");
     $("input[name='customerReference']").val("");
+    $("input[name='customerOrganisationNumber']").val("");
+    $("input[name='customerVatNumber']").val("");
     $("#customerForm input").removeAttr("disabled");
   }
 });

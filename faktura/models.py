@@ -14,6 +14,7 @@ class Customer(db.Model):
     zip = db.Column(db.String(10))
     reference = db.Column(db.String(250))
     organisation_number = db.Column(db.String(100))
+    vat_number = db.Column(db.String(100))
 
     def to_json(self):
         return dict(name=self.name,
@@ -21,7 +22,9 @@ class Customer(db.Model):
             id=self.id,
             city=self.city,
             zip=self.zip,
-            reference=self.reference
+            reference=self.reference,
+            organisation_number=self.organisation_number,
+            vat_number=self.vat_number
         )
 
 class Invoice(db.Model):

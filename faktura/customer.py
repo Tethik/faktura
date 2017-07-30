@@ -17,6 +17,7 @@ def _update_customer_from_form(customer, form):
     customer.city = form["customerCity"]
     customer.reference = form["customerReference"]
     customer.organisation_number = form["customerOrganisationNumber"]
+    customer.vat_number = form["customerVatNumber"]
 
 @app.route('/customer/<int:customer_id>', methods=["GET", "POST"])
 @login_required
